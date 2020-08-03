@@ -6,43 +6,44 @@
     <title>Pin Generator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
+                    <input class="form-control generatedVal" type="text" id="output">
                     <button class="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input class="form-control view" type="text">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                              <div class="button" onclick="input(this.innerText)">7</div>
+                              <div class="button" onclick="input(this.innerText)">8</div>
+                              <div class="button" onclick="input(this.innerText)">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                              <div class="button" onclick="input(this.innerText)">4</div>
+                              <div class="button" onclick="input(this.innerText)">5</div>
+                              <div class="button" onclick="input(this.innerText)">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                              <div class="button" onclick="input(this.innerText)">1</div>
+                              <div class="button" onclick="input(this.innerText)">2</div>
+                              <div class="button" onclick="input(this.innerText)">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button"><</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
+                                <div class="button" onclick="remove()"><</div>
+                                <div class="button" onclick="input(this.innerText)">0</div>
+                                <div class="button" onclick="clear()">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
+                                <button type="submit" class="submit-btn" onclick="submit()">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -50,46 +51,59 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p class="notify wrong">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify right">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
     <script>
-        let random = 0;
-        random = document.getElementById('generate-btn');
-        random.addEventListener('click', function(){
-            let randomNum = Math.round(Math.random()*10000);
-            if(randomNum<1000){
-                randomNum = randomNum+1000;
-            
-               // console.log(randomNum);
-                
-                
-                return randomNum;
-                
-            }
-            else{
-                
-                console.log(randomNum);
-               // return randomNum;;
-            }
-        return randomNum;
-            
-        })
-    
-        
-        
-        // //keypad
-        // let numberpad = document.getElementsByClassName('button');
-        // numberpad.addEventListener('click', function(){
-        //     let num = getElementsByClassName('button').val;
-        
-        //         })
-        
-        //let val = keypad.value;
+        //hiding part
+       document.querySelector(".notify-section").style.display = "none";
+       //pin generator
+       document.querySelector(".generate-btn").addEventListener("click", pinGenerator)
+       function pinGenerator(){
+           document.querySelector(".form-control").value = Math.ceil(Math.random()*9000 +1000);
+           document.querySelector(".form-control").style.color="white";
+       }
+       //input value and keypad
+       function input(x){
+           const amount = document.querySelector(".view")
+           amount.value=amount.value+x;
+           document.querySelector(".view").style.color="white"
+           document.querySelector(".view").style.textAlign = "right"
+       }
+       //submit part
+       function submit(){
+           const val = document.querySelector(".view").value
 
-       
+           const generatedValue = document.querySelector(".generatedVal").value
+
+           if(val==generatedValue){
+               document.querySelector(".notify-section").style.display = "block"
+               document.querySelector(".wrong").style.display="none"
         
+           }
+           else{
+            document.querySelector(".notify-section").style.display="block"
+               document.querySelector(".right").style.display="none"
+           }
+           //document.querySelector(".view").value=""
+           ////
+          // document.querySelector(".action-left").innerText
+       }
+       function clear(){
+            document.querySelector(".view").value = null;
+            
+        }
+        function remove(){
+            
+            const currentValue =  document.querySelector(".view").value
+ 
+           const newCurrentValue = currentValue.substring(0, currentValue.length - 1)
+ 
+           document.querySelector(".view").value = newCurrentValue   
+         }
+ 
     </script>
+
 </body>
 </html>
