@@ -54,5 +54,42 @@
             <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+    <script>
+        let random = 0;
+        random = document.getElementById('generate-btn');
+        random.addEventListener('click', function(){
+            let randomNum = Math.round(Math.random()*10000);
+            if(randomNum<1000){
+                randomNum = randomNum+1000;
+            
+               // console.log(randomNum);
+                
+                
+                return randomNum;
+                
+            }
+            else{
+                
+                console.log(randomNum);
+               // return randomNum;;
+            }
+        return randomNum;
+            
+        })
+    
+        
+        
+        // //keypad
+        // let numberpad = document.getElementsByClassName('button');
+        // numberpad.addEventListener('click', function(){
+        //     let num = getElementsByClassName('button').val;
+        
+        //         })
+        
+        //let val = keypad.value;
+
+       
+        
+    </script>
 </body>
 </html>
